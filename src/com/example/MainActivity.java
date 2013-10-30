@@ -1,22 +1,29 @@
 package com.example;
 
-import android.os.Bundle;
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.*;
 import android.app.Activity;
-import android.view.Menu;
+import android.os.Bundle;
 
 public class MainActivity extends Activity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+        // Get a handle to the Map Fragment
+        GoogleMap map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map)).getMap();
 
+        LatLng upb = new LatLng(6.242553, -75.589092);
+
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(upb, 16));
+        map.setMapType(GoogleMap.MAP_TYPE_NONE);
+        map.addMarker(new MarkerOptions()
+                .title("UPB")
+                .snippet("Universidad Pontificia Bolivariana")
+                .position(upb));
+    }
 }
